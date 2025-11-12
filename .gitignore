@@ -3,4 +3,4 @@ node_modules/
 # Distribution
 dist/
 #Coverage
-coverage
+coverage/
