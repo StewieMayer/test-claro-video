@@ -1,4 +1,5 @@
 import { Button, Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
+import { useEPGModal } from "./hooks/useEPGModal";
 
 interface EPGModalProps {
   show: boolean;
@@ -6,6 +7,7 @@ interface EPGModalProps {
 }
 
 export const EPGModal = ({ show, handleClose }: EPGModalProps) => {
+  const { channels } = useEPGModal();
   return (
     <Dialog
       transition
@@ -36,7 +38,12 @@ export const EPGModal = ({ show, handleClose }: EPGModalProps) => {
             <div className="flex flex-col h-full">
               {/* Close button */}
               <div className="flex fixed w-full z-50 text-white text-xl font-bold py-4 px-2 justify-end">
-                <Button onClick={handleClose} className='p-2 hover:cursor-pointer hover:bg-gray-500/10 rounded-lg'>X</Button>
+                <Button
+                  onClick={handleClose}
+                  className="p-2 hover:cursor-pointer hover:bg-gray-500/10 rounded-lg"
+                >
+                  X
+                </Button>
               </div>
               {/* Viewer */}
               <div className="flex w-full h-1/2 bg-gray-900"></div>
@@ -49,9 +56,19 @@ export const EPGModal = ({ show, handleClose }: EPGModalProps) => {
                   <div className="flex"></div>
                 </div>
                 {/* Chanels */}
-                <div className="flex grow">
-                  <div className="flex w-1/4"></div>
-                  <div className="flex grow"></div>
+                <div className="flex grow flex-col text-white overflow-y-scroll overflow-x-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                  {channels?.map((channel) => (
+                    <div className="flex w-full border border-amber-600" key={channel.id}>
+                      <div className="flex min-w-1/4 border border-amber-300">{channel.name}</div>
+                      <div className="flex  overflow-x-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                        {channel.events.map((event) => (
+                          <div className="flex border border-gray-500" key={event.source_uri}>
+                            {event.name}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
