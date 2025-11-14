@@ -7,16 +7,16 @@ export type EPGContextType = {
   channels: Array<Channel>;
   activeEvent: Event | undefined;
   scrollLeft: number;
-  dateFrom: Dayjs | undefined;
-  dateTo: Dayjs | undefined;
+  dateFrom: string;
+  dateTo: string;
 };
 
 const initialState: EPGContextType = {
   channels: [],
   activeEvent: undefined,
   scrollLeft: 0,
-  dateFrom: undefined,
-  dateTo: undefined,
+  dateFrom: '',
+  dateTo: '',
 };
 
 const channelSlice = createSlice({
@@ -32,10 +32,10 @@ const channelSlice = createSlice({
     setScrollLeft: (state, action: PayloadAction<number>) => {
       state.scrollLeft = action.payload;
     },
-    setDateFrom: (state, action: PayloadAction<Dayjs | undefined>) => {
+    setDateFrom: (state, action: PayloadAction<string>) => {
       state.dateFrom = action.payload;
     },
-    setDateTo: (state, action: PayloadAction<Dayjs | undefined>) => {
+    setDateTo: (state, action: PayloadAction<string>) => {
       state.dateTo = action.payload;
     },
   },
