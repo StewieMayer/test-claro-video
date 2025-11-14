@@ -1,5 +1,5 @@
-import { selectChannels } from "@/app/features/channelSlice";
-import { useAppSelector } from "@/app/hooks";
+import { selectChannels, setActiveEvent } from "@/app/features/channelSlice";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { RootState } from "@/app/store";
 import { useEffect, useRef } from "react";
 
@@ -7,6 +7,8 @@ export const useEPGModal = () => {
   const { channels, activeEvent } = useAppSelector((state: RootState) =>
     selectChannels(state)
   );
+
+  const dispatch = useAppDispatch()
 
   const timerRef = useRef<HTMLDivElement>(null);
   const channelsRef = useRef<HTMLDivElement>(null);
@@ -42,6 +44,7 @@ export const useEPGModal = () => {
       timer?.removeEventListener("scroll", handleSyncEventsLeft);
       channels?.removeEventListener("scroll", handleSyncEventsTop);
       events?.removeEventListener("scroll", handleSync);
+      dispatch(setActiveEvent(undefined))
     };
   }, [timerRef.current, eventsRef.current, channelsRef.current]);
 
