@@ -1,6 +1,11 @@
 import { useLazyGetChannelsQuery } from "@/app/features/channelsApi";
-import { setChannels } from "@/app/features/channelSlice";
+import {
+  setChannels,
+  setDateFrom,
+  setDateTo,
+} from "@/app/features/channelSlice";
 import { useAppDispatch } from "@/app/hooks";
+import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 
 export const useEPGPage = () => {
@@ -12,12 +17,21 @@ export const useEPGPage = () => {
 
   const handleCloseModal = () => setShow(false);
   const handleOpenModal = () => {
+    const today: Dayjs = dayjs();
+    const tomorrow: Dayjs = today.add(1, "day");
+
     setIsloading(true);
-    getChannels()
+
+    getChannels({
+      dateFrom: today.format("YYYYMMDDHHmmss"),
+      dateTo: tomorrow.format("YYYYMMDDHHmmss"),
+    })
       .unwrap()
       .then((response) => {
         if (response.length > 0) {
           dispatch(setChannels(response));
+          dispatch(setDateFrom(today));
+          dispatch(setDateTo(tomorrow));
           setShow(true);
         }
       })
