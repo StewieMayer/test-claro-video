@@ -4,7 +4,7 @@ import { RootState } from "@/app/store";
 import { useEffect, useRef } from "react";
 
 export const useEPGModal = () => {
-  const { channels, activeEvent } = useAppSelector((state: RootState) =>
+  const { channels } = useAppSelector((state: RootState) =>
     selectChannels(state)
   );
 
@@ -50,7 +50,6 @@ export const useEPGModal = () => {
 
   return {
     channels,
-    activeEvent,
     timerRef,
     channelsRef,
     eventsRef,
