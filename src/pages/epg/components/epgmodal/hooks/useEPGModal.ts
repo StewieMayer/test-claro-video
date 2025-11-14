@@ -1,18 +1,29 @@
 import { selectChannels, setActiveEvent } from "@/app/features/channelSlice";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { RootState } from "@/app/store";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 export const useEPGModal = () => {
   const { channels } = useAppSelector((state: RootState) =>
     selectChannels(state)
   );
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const timerRef = useRef<HTMLDivElement>(null);
   const channelsRef = useRef<HTMLDivElement>(null);
   const eventsRef = useRef<HTMLDivElement>(null);
+
+  const scrollLeft = useCallback(() => {
+    if (timerRef.current && timerRef.current.scrollLeft >= 100) {
+      timerRef.current.scrollLeft -= 100;
+    }
+  }, [timerRef.current]);
+  const scrollRight = useCallback(() => {
+    if (timerRef.current) {
+      timerRef.current.scrollLeft += 100;
+    }
+  }, [timerRef.current]);
 
   useEffect(() => {
     const timer = timerRef.current;
@@ -44,7 +55,7 @@ export const useEPGModal = () => {
       timer?.removeEventListener("scroll", handleSyncEventsLeft);
       channels?.removeEventListener("scroll", handleSyncEventsTop);
       events?.removeEventListener("scroll", handleSync);
-      dispatch(setActiveEvent(undefined))
+      dispatch(setActiveEvent(undefined));
     };
   }, [timerRef.current, eventsRef.current, channelsRef.current]);
 
@@ -53,5 +64,7 @@ export const useEPGModal = () => {
     timerRef,
     channelsRef,
     eventsRef,
+    scrollLeft,
+    scrollRight,
   };
 };
