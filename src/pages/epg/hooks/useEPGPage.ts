@@ -9,13 +9,19 @@ import dayjs from "dayjs";
 import { useState } from "react";
 
 export const useEPGPage = () => {
+  //State
   const [show, setShow] = useState<boolean>(false);
   const [isLoading, setIsloading] = useState<boolean>(false);
 
+  //Utils
   const [getChannels] = useLazyGetChannelsQuery();
   const dispatch = useAppDispatch();
 
   const handleCloseModal = () => setShow(false);
+  /* 
+    Al abrir el modal consume la api de channels usando la fecha y hora actual.
+    Setea el arreglo y los limites de programación en el Slice.
+  */ 
   const handleOpenModal = () => {
     const today = dayjs().format("YYYYMMDDHHmmss");
     const tomorrow= dayjs(today).add(1, "day").format("YYYYMMDDHHmmss");

@@ -6,11 +6,26 @@ import dayjs from "dayjs";
 import { useCallback, useMemo } from "react";
 
 export const useEventContainer = (event:Event) => {
+  //State
   const { dateFrom, dateTo } = useAppSelector((state: RootState) =>
     selectChannels(state)
   );
-  const dispatch = useAppDispatch();
 
+  //Utils
+  const dispatch = useAppDispatch();
+  
+  const parseDate = useCallback(
+    (date: string): string => dayjs(date).format("HH:mm"),
+    []
+  );
+
+  const handleSetEvent = () => dispatch(setActiveEvent(event));
+
+  //Variables de utilidad
+  /*
+    Calcula el width del div en base a los minutos que le quedan de transmision al evento.
+    1 min= 4px
+  */
   const width = useMemo(() => {
     const durationArr = event.duration.split(":").map((item) => parseInt(item));
     let minutesDuration =
@@ -30,17 +45,10 @@ export const useEventContainer = (event:Event) => {
     return `${minutesDuration}px`;
   }, [event]);
 
-  const parseDate = useCallback(
-    (date: string): string => dayjs(date).format("HH:mm"),
-    []
-  );
-
   const schedule = useMemo(
     () => `${parseDate(event.date_begin)}-${parseDate(event.date_end)}`,
     [event]
   );
-
-  const handleSetEvent = () => dispatch(setActiveEvent(event));
 
   return {
     width,

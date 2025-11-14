@@ -5,10 +5,13 @@ import dayjs from "dayjs";
 import { useCallback, useMemo } from "react";
 
 export const useEPGViewer = () => {
+
+  //State
   const { activeEvent } = useAppSelector((state: RootState) =>
     selectChannels(state)
   );
 
+  //Utils
   const parseDate = useCallback(
     (date: string): string => dayjs(date).format("HH.mm"),
     []
@@ -18,6 +21,7 @@ export const useEPGViewer = () => {
     return `${arrDuration[0]}h ${arrDuration[1]}min`;
   }, []);
 
+  //Variables de utilidad
   const schedule = useMemo(
     () =>
       activeEvent

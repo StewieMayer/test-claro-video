@@ -12,6 +12,10 @@ interface TimeLineProps {
 export const TimeLine = ({ ref, scrollLeft, scrollRight }: TimeLineProps) => {
   const { hoursArr } = useTimeLine();
 
+  /* 
+    Se recomienda no utilizar estilos inline. 
+    En esta ocasión es necesario debido a la naturaleza "dinamica" del width
+   */
   return (
     <div className="flex">
       <div

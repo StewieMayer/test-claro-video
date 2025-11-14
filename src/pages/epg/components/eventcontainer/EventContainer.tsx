@@ -9,6 +9,10 @@ interface EventProps {
 export const EventContainer = ({ event }: EventProps) => {
   const { width, handleSetEvent, schedule } = useEventContainer(event);
 
+  /* 
+    Se recomienda no utilizar estilos inline. 
+    En esta ocasión es necesario debido a la naturaleza "dinamica" del width
+   */
   return (
     <div
       className="flex flex-col p-2 bg-white/10 border border-gray-500 hover:cursor-pointer hover:bg-white/50 truncate"
