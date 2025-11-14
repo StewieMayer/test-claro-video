@@ -3,6 +3,7 @@ import { useEPGModal } from "./hooks/useEPGModal";
 import { EventContainer } from "../eventcontainer/EventContainer";
 import { ChannelContainer } from "../channelcontainer/ChannelContainer";
 import { EPGViewer } from "../epgviewer/EPGViewer";
+import { TimeLine } from "../timeline/TimeLine";
 
 interface EPGModalProps {
   show: boolean;
@@ -54,7 +55,7 @@ export const EPGModal = ({ show, handleClose }: EPGModalProps) => {
               <div className="flex h-1/2">
                 {/* left */}
                 <div className="flex w-1/5 flex-col text-white">
-                  <div className="flex min-h-10 grow justify-center font-bold">
+                  <div className="flex min-h-10 grow justify-center items-center font-bold">
                     HOY
                   </div>
                   <div
@@ -68,12 +69,7 @@ export const EPGModal = ({ show, handleClose }: EPGModalProps) => {
                 </div>
                 {/* right */}
                 <div className="flex w-4/5 flex-col">
-                  <div
-                    ref={timerRef}
-                    className="text-white min-h-10 flex overflow-x-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-                  >
-                    Parrilla
-                  </div>
+                  <TimeLine ref={timerRef} />
                   <div
                     ref={eventsRef}
                     className="flex flex-col overflow-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden text-white"
