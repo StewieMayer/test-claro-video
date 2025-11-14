@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
             GitHub
           </a>
           <a
-            href="https://linkedin.com/in/tu-linkedin"
+            href="https://www.linkedin.com/in/antonioamayastc/"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-white transition-colors duration-200"
@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
             LinkedIn
           </a>
           <a
-            href="mailto:stewiemayer@correo.com"
+            href="mailto:stewiemayer@hotmail.com"
             className="hover:text-white transition-colors duration-200"
           >
             Contacto
