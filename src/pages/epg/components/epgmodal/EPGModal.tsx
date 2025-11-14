@@ -4,6 +4,7 @@ import { EventContainer } from "../eventcontainer/EventContainer";
 import { ChannelContainer } from "../channelcontainer/ChannelContainer";
 import { EPGViewer } from "../epgviewer/EPGViewer";
 import { TimeLine } from "../timeline/TimeLine";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 
 interface EPGModalProps {
   show: boolean;
@@ -53,7 +54,7 @@ export const EPGModal = ({ show, handleClose }: EPGModalProps) => {
                   onClick={handleClose}
                   className="p-2 hover:cursor-pointer hover:bg-gray-500/10 rounded-lg"
                 >
-                  X
+                  <XMarkIcon className="size-8" />
                 </Button>
               </div>
               <EPGViewer />
