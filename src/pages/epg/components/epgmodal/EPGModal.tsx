@@ -1,6 +1,8 @@
 import { Button, Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useEPGModal } from "./hooks/useEPGModal";
-import { EventContainer } from "../channelrow/components/events/EventContainer";
+import { EventContainer } from "../eventcontainer/EventContainer";
+import { ChannelContainer } from "../channelcontainer/ChannelContainer";
+import { EPGViewer } from "../epgviewer/EPGViewer";
 
 interface EPGModalProps {
   show: boolean;
@@ -8,7 +10,8 @@ interface EPGModalProps {
 }
 
 export const EPGModal = ({ show, handleClose }: EPGModalProps) => {
-  const { channels,timerRef,channelsRef,eventsRef,activeEvent } = useEPGModal();
+  const { channels, timerRef, channelsRef, eventsRef } =
+    useEPGModal();
   return (
     <Dialog
       transition
@@ -46,33 +49,44 @@ export const EPGModal = ({ show, handleClose }: EPGModalProps) => {
                   X
                 </Button>
               </div>
-              {/* Viewer */}
-              <div className="flex w-full h-1/2 bg-gray-900">
-              {activeEvent &&(<div className="flex flex-col"><img src={activeEvent.ext_eventimage_name} alt={activeEvent.name} className="w-full h-full z-1" /><h1 className="z-2">{activeEvent.name}</h1><span className="z-2">{activeEvent.description}</span></div>)}
-              </div>
+              <EPGViewer />
               {/* EPG Container */}
               <div className="flex h-1/2">
                 {/* left */}
-                <div className="flex w-1/4 flex-col text-white">
+                <div className="flex w-1/5 flex-col text-white">
                   <div className="flex min-h-10 grow justify-center font-bold">
                     HOY
                   </div>
-                  <div ref={channelsRef} className="flex grow flex-col overflow-y-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                  <div
+                    ref={channelsRef}
+                    className="flex grow flex-col overflow-y-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+                  >
                     {channels.map((channel) => (
-                      <div key={channel.name} className="min-h-24 max-h-24">{channel.number}</div>
+                      <ChannelContainer channel={channel} key={channel.name} />
                     ))}
                   </div>
                 </div>
                 {/* right */}
-                <div className="flex w-3/4 flex-col">
-                  <div ref={timerRef} className="text-white min-h-10 flex overflow-x-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">Parrilla</div>
-                  <div ref={eventsRef} className="flex flex-col overflow-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden text-white">
-                    {channels.map((channel) => (
-                      <div className="flex min-h-24 max-h-24">
-                        {channel.events.map((event) => (
+                <div className="flex w-4/5 flex-col">
+                  <div
+                    ref={timerRef}
+                    className="text-white min-h-10 flex overflow-x-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+                  >
+                    Parrilla
+                  </div>
+                  <div
+                    ref={eventsRef}
+                    className="flex flex-col overflow-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden text-white"
+                  >
+                    {channels.map((channel, index) => (
+                      <div
+                        className="flex min-h-24 max-h-24"
+                        key={`${index}-${channel.name}`}
+                      >
+                        {channel.events.map((event, index) => (
                           <EventContainer
                             event={event}
-                            key={`${event.id}-${event.date_begin}`}
+                            key={`${index}-${event.id}-${event.date_begin}`}
                           />
                         ))}
                       </div>
