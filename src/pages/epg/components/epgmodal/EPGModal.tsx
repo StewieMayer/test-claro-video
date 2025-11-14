@@ -11,8 +11,14 @@ interface EPGModalProps {
 }
 
 export const EPGModal = ({ show, handleClose }: EPGModalProps) => {
-  const { channels, timerRef, channelsRef, eventsRef } =
-    useEPGModal();
+  const {
+    channels,
+    timerRef,
+    channelsRef,
+    eventsRef,
+    scrollLeft,
+    scrollRight,
+  } = useEPGModal();
   return (
     <Dialog
       transition
@@ -69,7 +75,11 @@ export const EPGModal = ({ show, handleClose }: EPGModalProps) => {
                 </div>
                 {/* right */}
                 <div className="flex w-4/5 flex-col">
-                  <TimeLine ref={timerRef} />
+                  <TimeLine
+                    ref={timerRef}
+                    scrollLeft={scrollLeft}
+                    scrollRight={scrollRight}
+                  />
                   <div
                     ref={eventsRef}
                     className="flex flex-col overflow-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden text-white"
