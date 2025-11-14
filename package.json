@@ -1,6 +1,6 @@
 {
   "name": "claro_video",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Prueba tecnica para claro video, desarrollada con webpack, react, typescript, tailwind, rtk query y pruebas unitarias con jest/rtl",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,9 @@
   "license": "ISC",
   "dependencies": {
     "@headlessui/react": "^2.2.9",
+    "@heroicons/react": "^2.2.0",
     "@reduxjs/toolkit": "^2.10.1",
+    "dayjs": "^1.11.19",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-redux": "^9.2.0"

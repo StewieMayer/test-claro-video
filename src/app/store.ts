@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "./features/baseApi";
+import channels from "./features/channelSlice";
 
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
+    channels,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(baseApi.middleware),
