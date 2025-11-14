@@ -5,7 +5,7 @@ import {
   setDateTo,
 } from "@/app/features/channelSlice";
 import { useAppDispatch } from "@/app/hooks";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { useState } from "react";
 
 export const useEPGPage = () => {
@@ -17,14 +17,14 @@ export const useEPGPage = () => {
 
   const handleCloseModal = () => setShow(false);
   const handleOpenModal = () => {
-    const today: Dayjs = dayjs();
-    const tomorrow: Dayjs = today.add(1, "day");
+    const today = dayjs().format("YYYYMMDDHHmmss");
+    const tomorrow= dayjs(today).add(1, "day").format("YYYYMMDDHHmmss");
 
     setIsloading(true);
 
     getChannels({
-      dateFrom: today.format("YYYYMMDDHHmmss"),
-      dateTo: tomorrow.format("YYYYMMDDHHmmss"),
+      dateFrom: today,
+      dateTo: tomorrow,
     })
       .unwrap()
       .then((response) => {
