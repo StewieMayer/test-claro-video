@@ -16,7 +16,7 @@ export const EPGViewer = () => {
           )}
           <div className="flex flex-col gap-8 bg-black/75 w-full h-1/2 text-white absolute z-40 pt-10 px-2">
             <h1 className="text-4xl">{activeEvent.name}</h1>
-            <div className="flex flex-col gap-2 text-xl">
+            <div className="flex flex-col gap-2 text-lg">
               <span>{schedule}</span>
               <span>{activeEvent.description}</span>
             </div>
