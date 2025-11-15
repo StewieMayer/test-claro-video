@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      
+
   workflow_dispatch:
 
 # Permisos requeridos:
@@ -19,19 +19,22 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout del Repositorio
         uses: actions/checkout@v4
-        
+
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
-          cache: 'npm' 
+          node-version: "20.x"
+          cache: "npm"
 
       - name: Instalar Dependencias
         run: npm ci
+
+      - name: Ejecutar Tests
+        run: npm run test
 
       - name: Construir Proyecto
         run: npm run build
@@ -39,17 +42,17 @@ jobs:
       - name: Cargar Artefacto de Producción
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist' 
+          path: "./dist"
 
   # 2. Trabajo para desplegar el artefacto
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }} 
-      
-    needs: build 
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    needs: build
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Desplegar en GitHub Pages
         id: deployment
