@@ -7,10 +7,6 @@ on:
 
   workflow_dispatch:
 
-# Permisos requeridos:
-# 1. contents: Para checkout del código.
-# 2. pages: Para desplegar en GitHub Pages.
-# 3. id-token: Para autenticar la acción de despliegue.
 permissions:
   contents: read
   pages: write
@@ -44,7 +40,6 @@ jobs:
         with:
           path: "./dist"
 
-  # 2. Trabajo para desplegar el artefacto
   deploy:
     environment:
       name: github-pages
