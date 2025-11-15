@@ -1,7 +1,7 @@
 import { Button } from "@headlessui/react";
-import { EPGModal } from "@/pages/epg/components/epgmodal/EPGModal";
+import { EPGModal } from "./components/epgmodal/EPGModal";
 import { useEPGPage } from "./hooks/useEPGPage";
-import { Spinner } from "@/components/Spinner";
+import { Spinner } from "../../components/Spinner";
 
 export const EPGPage = () => {
   const { handleCloseModal, handleOpenModal, isLoading, show } = useEPGPage();

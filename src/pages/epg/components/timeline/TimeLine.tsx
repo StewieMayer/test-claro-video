@@ -34,12 +34,14 @@ export const TimeLine = ({ ref, scrollLeft, scrollRight }: TimeLineProps) => {
       </div>
       <div className="flex bg-black text-white">
         <Button
+          data-test-id="scroll-left"
           className="p-2 hover:cursor-pointer hover:bg-white/50"
           onClick={scrollLeft}
         >
           <ChevronLeftIcon className="size-8" />
         </Button>
         <Button
+          data-test-id="scroll-right"
           className="p-2 hover:cursor-pointer hover:bg-white/50"
           onClick={scrollRight}
         >
